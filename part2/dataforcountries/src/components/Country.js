@@ -1,12 +1,12 @@
 import Axios from 'axios';
 import React, { useEffect, useState } from 'react';
 export default function Country({ country }) {
-    const [weather,setWeather] = useState({})
-    useEffect(()=>{
-        Axios.get(`http://api.weatherstack.com/current?access_key=${process.env.REACT_APP_API_KEY}&query=${country.capital}`).then(({data})=>{
+    const [weather, setWeather] = useState({})
+    useEffect(() => {
+        Axios.get(`http://api.weatherstack.com/current?access_key=${process.env.REACT_APP_API_KEY}&query=${country.capital}`).then(({ data }) => {
             setWeather(data.current)
         })
-    },[])
+    }, [])
     return (
         <div>
             <h1>{country.name}</h1>
@@ -23,7 +23,7 @@ export default function Country({ country }) {
             <img style={{ height: '100px' }} src={country.flag} />
             <h1>Weather in {country.capital}</h1>
             <h3>temperature:{weather.temperature} Celcius</h3>
-            <img src={weather.weather_icons} alt=""/>
+            <img src={weather.weather_icons} alt="" />
             <h3>wind:{weather.wind_degree} mph direction {weather.wind_dir}</h3>
         </div>
 

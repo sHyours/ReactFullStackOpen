@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react'
-import axios from 'axios';
 import Filter from './components/Filter';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
+import PersonsService from './services/PersonsService';
 const App = () => {
   const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: '040-123456' },
+    { name: 'Arto Hellas', number: '040-123456', id: 1 },
   ])
   const [newName, setNewName] = useState('')
   const [newPhoneNumber, setPhoneNumber] = useState('')
@@ -13,14 +13,22 @@ const App = () => {
   const addPersons = (event) => {
     event.preventDefault()
     console.log('add', event.target);
-    if (persons.some(p => p.name === newName)) {
-      alert(`${newName} is already added to phonebook`)
-      return
-    }
-    setPersons(persons.concat({
+    const personFinded = persons.find(p => p.name === newName)
+    const newPerson = {
       name: newName,
       number: newPhoneNumber
-    }))
+    }
+    if (personFinded) {
+      if (window.confirm(`${newName} isalready added to phonebook,replace the old number with a new one?`)) {
+        PersonsService.update(personFinded.id, newPerson).then(data => {
+          setPersons(persons.map(p => p.id !== personFinded.id ? p : data))
+        })
+      }
+      return
+    }
+    PersonsService.add(newPerson).then(data => {
+      setPersons(persons.concat({ ...newPerson, id: data.id }))
+    })
   }
   const nameChange = (e) => {
     setNewName(e.target.value);
@@ -31,9 +39,15 @@ const App = () => {
   const searchChange = (e) => {
     setSearch(e.target.value);
   }
+  const deletePeson = person => {
+    PersonsService.deletePerson(person.id).then(id => {
+      setPersons(persons.filter(p => p.id !== id))
+    })
+  }
   useEffect(() => {
-    axios.get('http://localhost:3001/persons').then(response => {
-      setPersons(response.data)
+    PersonsService.getAll().then(data => {
+      console.log(data);
+      setPersons(data)
     })
   }, [])
   return (
@@ -43,7 +57,7 @@ const App = () => {
       <h3>add a new</h3>
       <PersonForm onSubmit={addPersons} name={newName} nameChange={nameChange} number={newPhoneNumber} numberChange={phoneNumberChange} />
       <h3>Numbers</h3>
-      <Persons persons={persons} search={search} />
+      <Persons persons={persons} search={search} deletePerson={deletePeson} />
     </div>
   )
 }
