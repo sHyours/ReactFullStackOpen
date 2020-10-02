@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import Filter from './components/Filter';
+import Info from './components/Info';
 import PersonForm from './components/PersonForm';
 import Persons from './components/Persons';
 import PersonsService from './services/PersonsService';
@@ -10,6 +11,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newPhoneNumber, setPhoneNumber] = useState('')
   const [search, setSearch] = useState('')
+  const [info, setInfo] = useState({ type: "", message: "" })
   const addPersons = (event) => {
     event.preventDefault()
     console.log('add', event.target);
@@ -28,6 +30,10 @@ const App = () => {
     }
     PersonsService.add(newPerson).then(data => {
       setPersons(persons.concat({ ...newPerson, id: data.id }))
+      setInfo({ type: 'info', message: `Added ${data.name}` })
+      setTimeout(() => {
+        setInfo(null)
+      }, 5000);
     })
   }
   const nameChange = (e) => {
@@ -42,6 +48,11 @@ const App = () => {
   const deletePeson = person => {
     PersonsService.deletePerson(person.id).then(id => {
       setPersons(persons.filter(p => p.id !== id))
+    }).catch(error => {
+      setInfo({ type: 'warning', message: `Infomation of ${person.name} has already been removed from server` })
+      setTimeout(() => {
+        setInfo(null)
+      }, 5000);
     })
   }
   useEffect(() => {
@@ -53,6 +64,9 @@ const App = () => {
   return (
     <div>
       <h2>Phonebook</h2>
+      {
+        info ? <Info type={info.type} message={info.message}></Info> : []
+      }
       <Filter search={search} onChange={searchChange} />
       <h3>add a new</h3>
       <PersonForm onSubmit={addPersons} name={newName} nameChange={nameChange} number={newPhoneNumber} numberChange={phoneNumberChange} />
