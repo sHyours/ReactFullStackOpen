@@ -2,6 +2,10 @@
   "name": "phonebookbackend",
   "version": "1.0.0",
   "scripts": {
+    "build:ui": "rm -rf build && cd ../../part2/thephonebook && yarn build --prod && cp -r build ../../part3/phonebookbackend",
+    "deploy": "git push heroku master",
+    "deploy:full": "yarn build:ui && git add . && git commit -m uibuild && yarn deploy",
+    "logs:prod": "heroku logs --tail",
     "start": "node index.js",
     "dev": "nodemon index.js",
     "test": "echo \"Error:no test spcified\" && exit 1"
