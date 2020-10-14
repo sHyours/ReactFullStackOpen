@@ -24,6 +24,12 @@ const App = () => {
       if (window.confirm(`${newName} isalready added to phonebook,replace the old number with a new one?`)) {
         PersonsService.update(personFinded.id, newPerson).then(data => {
           setPersons(persons.map(p => p.id !== personFinded.id ? p : data))
+        }).catch(error => {
+          const data = error.response.data
+          setInfo({ type: 'warning', message: `${data.error}` })
+          setTimeout(() => {
+            setInfo(null)
+          }, 5000);
         })
       }
       return
@@ -31,6 +37,12 @@ const App = () => {
     PersonsService.add(newPerson).then(data => {
       setPersons(persons.concat({ ...newPerson, id: data.id }))
       setInfo({ type: 'info', message: `Added ${data.name}` })
+      setTimeout(() => {
+        setInfo(null)
+      }, 5000);
+    }).catch(error => {
+      const data = error.response.data
+      setInfo({ type: 'warning', message: `${data.error}` })
       setTimeout(() => {
         setInfo(null)
       }, 5000);
