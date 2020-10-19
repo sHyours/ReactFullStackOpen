@@ -8,6 +8,7 @@
     "logs:prod": "heroku logs --tail",
     "start": "node index.js",
     "dev": "nodemon index.js",
+    "lint": "eslint .",
     "test": "echo \"Error:no test spcified\" && exit 1"
   },
   "main": "index.js",
@@ -21,6 +22,7 @@
     "morgan": "^1.10.0"
   },
   "devDependencies": {
+    "eslint": "^7.11.0",
     "nodemon": "^2.0.4"
   }
 }
