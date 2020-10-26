@@ -1,5 +1,7 @@
 const info = function(...para) {
-  console.log(...para);
+  if(process.env.NODE_ENV !== 'test'){
+    console.log(...para);
+  }
 };
 const error = function(...para) {
   console.error(...para);

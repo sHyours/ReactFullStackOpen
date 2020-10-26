@@ -1,5 +1,4 @@
-const logger = require('../utils/logger');
-const dummy = (blogs) => {
+const dummy = () => {
   return 1;
 };
 const totalLikes = (blogs) => {
