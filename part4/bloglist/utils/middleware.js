@@ -1,5 +1,4 @@
-const logger = require("./logger");
-const { info } = require("./logger");
+const logger = require('./logger');
 const errorHandler = (error, request, response, next) => {
   logger.info(error.message);
   if (error.name === 'CastError' && error.kind === 'ObjectId') {

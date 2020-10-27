@@ -7,9 +7,11 @@ const initialBlogs = [{ _id: '5a422a851b54a676234d17f7', title: 'React patterns'
 const newBlog = { _id: '5a422bc61b54a676234d17fc', title: 'Type wars', author: 'Robert C. Martin', url: 'http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html', likes: 2, __v: 0 };
 const blogWithoutLikes = { _id: '5a422b891b54a676234d17fa', title: 'First class tests', author: 'Robert C. Martin', url: 'http://blog.cleancoder.com/uncle-bob/2017/05/05/TestDefinitions.htmll', __v: 0 };
 const errorBlog = { _id: '5a422ba71b54a676234d17fb', author: 'Robert C. Martin', likes: 0, __v: 0 };
+const updateBlog = {title: 'React patterns', author: 'Michael Jacker', url: 'https://reactpatterns.com/', likes: 7};
 module.exports = {
   initialBlogs,
   newBlog,
   blogWithoutLikes,
-  errorBlog
+  errorBlog,
+  updateBlog
 };
