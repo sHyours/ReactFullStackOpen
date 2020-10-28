@@ -1,0 +1,10 @@
+POST http://localhost:3001/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImJvYm8iLCJpZCI6IjVmOTk5ZmRmOWYwZGMxNjc4NDM2ODI5OSIsImlhdCI6MTYwMzkwNjU4N30.JNmEixPG1oWHk7gHKcWbrqvwDPyl-E_eL-5kR3pO0_k
+
+{
+  "title": "Title",
+  "author": "me",
+  "url": "exhentai.org",
+  "likes": 24
+}
