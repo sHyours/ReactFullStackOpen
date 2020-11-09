@@ -4,6 +4,7 @@
     "lint": "eslint .",
     "start": "cross-env NODE_ENV=production node index.js",
     "dev": "cross-env NODE_ENV=development nodemon index.js",
+    "start:test": "cross-env NODE_ENV=test nodemon index.js",
     "test": "cross-env NODE_ENV=test jest --verbose --runInBand"
   },
   "version": "1.0.0",
